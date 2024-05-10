@@ -1,17 +1,15 @@
-import { Button, Flex } from "@chakra-ui/react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Flex } from '@chakra-ui/react';
+import AppButton from '../../components/app/app-button/app-button';
 
 const MainHomePage: React.FC = () => {
-  const navigate = useNavigate();
+  const [loggingIn, setLoggingIn] = useState<boolean>(true);
 
   return (
-    <>
-      <Flex gap={"10px"}>
-        <Button onClick={() => navigate("/register")}>Register</Button>
-        <Button onClick={() => navigate("/login")}>Login</Button>
-      </Flex>
-    </>
+    <Flex gap={'10px'}>
+      <AppButton onClick={() => {}}>Register</AppButton>
+      <AppButton onClick={() => {}}>Login</AppButton>
+    </Flex>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const LoginPage: React.FC = () => {
@@ -9,15 +9,15 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const cookies = new Cookies();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/home");
-      return;
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/home");
+  //     return;
+  //   }
+  // }, [isLoggedIn]);
 
   const handleFormSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
