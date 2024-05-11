@@ -15,7 +15,7 @@ import {
   } from 'react-hook-form';
   import { AppColors } from '../../../theme';
   
-  export type AppInputType = 'text' | 'email';
+  export type AppInputType = 'text' | 'email' | 'password';
   export type AppInputVariants = 'outline' | 'filled' | 'flushed' | 'unstyled';
   
   export type AppInputProps<T extends FieldValues> = FlexProps & {
@@ -47,7 +47,7 @@ import {
           name={name}
           render={({ field: { onChange, onBlur, value, ref } }) => (
             <FormControl>
-              <FormLabel fontWeight={'bold'} color={AppColors.highlight}>
+              <FormLabel fontWeight={'500'} fontSize={'14px'} color={AppColors.appTextColor}>
                 {label}
               </FormLabel>
               {!textArea ? (
@@ -60,6 +60,7 @@ import {
                   value={value}
                   bgColor={'0,0,0'}
                   ref={ref}
+                  rounded={'md'}
                 />
               ) : (
                 <Textarea

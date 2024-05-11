@@ -7,28 +7,17 @@ import { AppUserIcon } from '../app/app-user-icon/app-user-icon';
 import { FaRegUser } from 'react-icons/fa';
 import { FaRegBell } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
-import { FaMapPin } from 'react-icons/fa';
+import { Header } from './header';
 
 export type BaseLayoutProps = {
   children?: ReactNode | ReactNode[];
 };
 
 export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
-    // const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Flex minH={'100vh'} minW={'100vw'} pos={'relative'} flexDir={'column'}>
-      <Flex
-        w={'100%'}
-        h={'60px'}
-        justify={'center'}
-        align={'center'}
-        boxShadow={'0px 0px 4px 4px rgba(0, 0, 0, 0.05)'}
-      >
-        <Text fontWeight={'600'} fontSize={'18px'}>
-          PinUp
-        </Text>
-        <Icon as={FaMapPin} />
-      </Flex>
+      <Header />
       <Flex
         overflow={'auto'}
         w={'100%'}

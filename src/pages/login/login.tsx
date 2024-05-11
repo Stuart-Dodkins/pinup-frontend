@@ -1,81 +1,72 @@
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 // import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
+import { LoginForm } from '../../components/forms/login-form';
+import { Header } from '../../components/layouts/header';
+import RegisterForm from '../../components/forms/register-form';
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState<string | undefined>(undefined);
-  const [password, setPassword] = useState<string | undefined>(undefined);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [register, setRegister] = useState<boolean>(true);
 
   // const navigate = useNavigate();
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/home");
-  //     return;
-  //   }
-  // }, [isLoggedIn]);
+  // const handleFormSubmit = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   if (!email || !password) return;
 
-  const handleFormSubmit = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!email || !password) return;
+  //   const payload = {
+  //     email: email,
+  //     password: password,
+  //   };
 
-    const payload = {
-      email: email,
-      password: password,
-    };
+  //   axios
+  //     .post('http://localhost:5050/login', payload)
+  //     .then((res) => {
+  //       if (!res) return;
+  //       cookies.set('TOKEN', res.data.token);
+  //       setIsLoggedIn(true);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
 
-    axios
-      .post("http://localhost:5050/login", payload)
-      .then((res) => {
-        if (!res) return;
-        cookies.set("TOKEN", res.data.token);
-        setIsLoggedIn(true);
-      })
-      .catch((e) => console.log(e));
+  const handleLogin = () => {
+    console.log('LOGIN');
+  };
+
+  const handleRegister = () => {
+    console.log('REGISTER');
   };
 
   return (
-    <>
-      <Flex
-        height={"100vh"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        width={"100%"}
-        flexDirection={"column"}
-      >
-        <Flex direction={"column"} gap={"20px"}>
-          <Text fontWeight={"bold"} width={"100%"}>
+    <Flex
+      height={'100vh'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      width={'100vw'}
+      flexDirection={'column'}
+      pos={'relative'}
+    >
+      <Header pos={'absolute'} top={0} left={0} />
+      <Box display={register ? 'none' : 'block'}>
+        <Flex align={'center'} justify={'center'}>
+          <Text fontSize={'18px'} fontWeight={'600'}>
             Login
           </Text>
-          <Flex flexDirection={"column"} gap={"5px"}>
-            <Text fontWeight={"bold"} width={"100%"}>
-              Email
-            </Text>
-            <Input onChange={(e) => setEmail(e.currentTarget.value)} />
-          </Flex>
-          <Flex flexDirection={"column"} gap={"5px"}>
-            <Text fontWeight={"bold"} width={"100%"}>
-              Password
-            </Text>
-            <Input
-              type="password"
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-          </Flex>
-
-          <Button
-            disabled={!email || !password}
-            onClick={(e) => handleFormSubmit(e)}
-          >
-            Submit
-          </Button>
         </Flex>
-      </Flex>
-    </>
+        <LoginForm register={() => setRegister(!register)} />
+      </Box>
+      <Box display={register ? 'block' : 'none'}>
+        <Flex align={'center'} justify={'center'}>
+          <Text fontSize={'18px'} fontWeight={'600'}>
+            Register
+          </Text>
+        </Flex>
+        <RegisterForm login={() => setRegister(!register)} />
+      </Box>
+    </Flex>
   );
 };
 
