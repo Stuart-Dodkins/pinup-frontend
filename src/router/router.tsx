@@ -13,16 +13,15 @@ export const AppRouter: React.FC = () => {
     <BrowserRouter basename='/'>
       <Routes>
         <Route path='/' element={<LoginPage />} />
-        <Route path='/' element={<></>}>
-          <Route
-            path='/dashboard'
-            element={
-              <PrivateRoute route={RoutesList.Home}>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
-        </Route>
+        {/* <Route
+          path='/dashboard'
+          element={
+            <PrivateRoute route={RoutesList.Home}>
+              <HomePage />
+            </PrivateRoute>
+          }
+        /> */}
+        <Route path='/dashboard' element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );

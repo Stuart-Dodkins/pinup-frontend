@@ -9,7 +9,7 @@ const AppColors = {
 
 const buttonConfig: ComponentStyleConfig = {
   baseStyle: {
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#EEEEEE',
     rounded: 'md',
     border: `1px solid ${AppColors.secondary}`,
@@ -23,7 +23,7 @@ const buttonConfig: ComponentStyleConfig = {
       py: 1,
     },
     sm: {
-      fontSize: '16px',
+      fontSize: '14px',
     },
     md: {
       fontSize: '18px',

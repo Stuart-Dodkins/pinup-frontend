@@ -46,6 +46,7 @@ const RegisterForm: React.FC<RegisterFormProps<RegisterFormData>> = ({
   const handleFormSubmit = () => {
     const formData = getValues();
     console.log('FORMDATA', formData);
+    //make sure to save the user to store
   };
 
   return (

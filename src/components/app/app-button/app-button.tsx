@@ -25,6 +25,8 @@ const AppButton: React.FC<AppbuttonProps> = ({
       bgColor={AppColors.primary}
       color={color}
       size={size}
+      border={'none'}
+      boxShadow={'md'}
       _hover={{
         transform: 'translateY(-2px)',
         boxShadow: `4px 4px 0 0 ${AppColors.highlight}`,

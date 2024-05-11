@@ -16,13 +16,19 @@ export type BaseLayoutProps = {
 export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   return (
-    <Flex minH={'100vh'} minW={'100vw'} pos={'relative'} flexDir={'column'}>
+    <Flex
+      minH={'100vh'}
+      minW={'100vw'}
+      pos={'relative'}
+      flexDir={'column'}
+      bgClip={AppColors.appTextColor}
+    >
       <Header />
       <Flex
         overflow={'auto'}
         w={'100%'}
         h={'100%'}
-        pt={4}
+        p={4}
         pb={{ base: '60px', lg: 0 }}
       >
         {children}
