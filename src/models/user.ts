@@ -1,13 +1,22 @@
-import { Base } from './base';
 
-export interface User extends Base {
+export interface UserContactInfo {
   email: string;
-  location?: string; //Can change this later
+  phone?: string;
+  address: string;
+}
+
+export interface User {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  contactInfo: UserContactInfo;
 }
 
 export interface UserFormData {
-  email: string;
-  password: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  contactInfo: UserContactInfo;
 }
 
 export interface UserEditFormData extends UserFormData {

@@ -37,6 +37,7 @@ export const LoginForm: React.FC<LoginFormProps<LoginFormData>> = ({
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
   const {
     control,
+    handleSubmit,
     formState: { isValid, errors },
   } = useForm<LoginFormData>({
     defaultValues: form || defaultValues,
@@ -59,7 +60,7 @@ export const LoginForm: React.FC<LoginFormProps<LoginFormData>> = ({
           inputType='password'
         />
       </Box>
-      <AppButton onClick={onSubmit} isDisabled={!isValid}>
+      <AppButton onClick={handleSubmit(onSubmit)} isDisabled={!isValid}>
         Login
       </AppButton>
       <Text

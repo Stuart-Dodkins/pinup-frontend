@@ -1,17 +1,17 @@
 import { Flex, Text, Image } from '@chakra-ui/react';
 import { AppColors } from '../../../theme';
 
-export interface AppCardProps {
+export interface AppBusinessCardProps {
   isNew?: boolean;
   isFeatured?: boolean;
   name: string;
   image?: string;
   description?: string;
-  rating?: string; //we can always change this to a number later
+  rating?: number;
   cta?: () => void;
 }
 
-export const AppCard: React.FC<AppCardProps> = ({
+export const AppBusinessCard: React.FC<AppBusinessCardProps> = ({
   isNew,
   isFeatured,
   name,

@@ -1,24 +1,23 @@
 import { Text, Flex, Icon, Input, Stack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 // import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie';
-import { RoutesList } from '../../router/router';
+// import Cookies from 'universal-cookie';
+// import { RoutesList } from '../../router/router';
 import { BaseLayout } from '../../components/layouts/base-layout';
 import { IoSearch } from 'react-icons/io5';
 import AppButton from '../../components/app/app-button/app-button';
 
 const HomePage: React.FC = () => {
-  const cookie = new Cookies();
+  // const cookie = new Cookies();
   const [searchParam, setSearchParam] = useState<string>('');
   // const navigate = useNavigate();
 
-  const handleLogout = () => {
-    cookie.remove('TOKEN');
+  // const handleLogout = () => {
+  //   cookie.remove('TOKEN');
 
-    const token = cookie.get('TOKEN');
-    if (token) return;
-    // navigate(RoutesList.Landing);
-  };
+  //   const token = cookie.get('TOKEN');
+  //   if (token) return;
+  // };
 
   return (
     <BaseLayout>

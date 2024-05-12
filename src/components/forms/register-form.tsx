@@ -7,7 +7,7 @@ import { BaseFormProps } from '../../models/base';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AppColors } from '../../theme';
 
-interface RegisterFormData {
+export interface RegisterFormData {
   email: string;
   password: string;
   login?: () => void;
@@ -35,7 +35,6 @@ const RegisterForm: React.FC<RegisterFormProps<RegisterFormData>> = ({
 }) => {
   const {
     control,
-    getValues,
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<RegisterFormData>({
@@ -43,11 +42,10 @@ const RegisterForm: React.FC<RegisterFormProps<RegisterFormData>> = ({
     resolver: yupResolver(loginDataSchema),
   });
 
-  const handleFormSubmit = () => {
-    const formData = getValues();
-    console.log('FORMDATA', formData);
-    //make sure to save the user to store
-  };
+  // const handleFormSubmit = () => {
+  //   const formData = getValues();
+  //   console.log('FORMDATA', formData);
+  // };
 
   return (
     <Stack spacing={4} padding={4} rounded={'md'} boxShadow={'lg'}>
@@ -64,7 +62,7 @@ const RegisterForm: React.FC<RegisterFormProps<RegisterFormData>> = ({
         label='Password'
         inputType='password'
       />
-      <AppButton onClick={handleFormSubmit} isDisabled={!isValid}>
+      <AppButton onClick={handleSubmit(onSubmit)} isDisabled={!isValid}>
         Register
       </AppButton>
       <Text

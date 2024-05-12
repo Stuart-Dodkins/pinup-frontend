@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 interface ColorState {
-  iconColor: string | null;
+  iconColor?: string;
 }
 
 const initialState: ColorState = {
-  iconColor: null,
+  iconColor: undefined,
 };
 
 export const iconColorSlice = createSlice({

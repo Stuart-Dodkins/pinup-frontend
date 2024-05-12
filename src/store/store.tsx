@@ -12,10 +12,28 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import { iconColorSlice } from './slices/user-icon-slice';
+import { userSlice } from './slices/user.slice';
+
+const userSlicePersistedReducer = persistReducer(
+  {
+    key: 'user',
+    storage,
+  },
+  userSlice.reducer
+);
+
+const iconColorPersistedReducer = persistReducer(
+  {
+    key: 'icon-color',
+    storage,
+  },
+  iconColorSlice.reducer
+);
 
 export const store = configureStore({
   reducer: {
-    iconColor: iconColorSlice.reducer,
+    user: userSlicePersistedReducer,
+    iconColor: iconColorPersistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
