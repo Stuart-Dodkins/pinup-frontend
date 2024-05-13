@@ -58,24 +58,27 @@ const ServiceFinderForm: React.FC<
   ];
 
   return (
-    <Stack spacing={4} p={4} rounded={'2xl'} boxShadow={'lg'} w={'100%'}>
+    <Stack border={'1px solid rgba(0, 0, 0, 0.1)'} spacing={4} p={4} rounded={'2xl'} boxShadow={'lg'} w={'100%'}>
       <AppInput<ServiceFinderFormData>
         control={control}
         label='Location'
         error={errors.location}
         name='location'
+        placeHolder='Location'
       />
       <AppInput<ServiceFinderFormData>
         control={control}
         label='Company Name'
         error={errors.location}
         name='companyName'
+        placeHolder='Company Name'
       />
       <AppSelect<ServiceFinderFormData>
         name={'service'}
         control={control}
         error={errors.location}
         label='Service'
+        placeholder='Service Category'
         options={options}
       />
       <AppButton
