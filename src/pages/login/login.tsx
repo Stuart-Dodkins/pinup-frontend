@@ -46,33 +46,41 @@ const LoginPage: React.FC = () => {
   // };
 
   const handleLogin = (formData: LoginFormData) => {
-    dispatch(
-      setUser({
-        userId: '',
-        firstName: '',
-        lastName: '',
-        contactInfo: {
-          email: formData.email,
-          phone: '',
-          address: '',
-        },
-      })
-    );
+    if (isUser) {
+      dispatch(
+        setUser({
+          userId: '',
+          firstName: '',
+          lastName: '',
+          contactInfo: {
+            email: formData.email,
+            phone: '',
+            address: '',
+          },
+        })
+      );
+    } else {
+      console.log('BUSNIESS LOGIN');
+    }
   };
 
   const handleRegister = (formData: RegisterFormData) => {
-    dispatch(
-      setUser({
-        userId: '',
-        firstName: '',
-        lastName: '',
-        contactInfo: {
-          email: formData.email,
-          phone: '',
-          address: '',
-        },
-      })
-    );
+    if (isUser) {
+      dispatch(
+        setUser({
+          userId: '',
+          firstName: '',
+          lastName: '',
+          contactInfo: {
+            email: formData.email,
+            phone: '',
+            address: '',
+          },
+        })
+      );
+    } else {
+      console.log('BUSINESS REGISTER')
+    }
     dispatch(setFirstLogin(true));
   };
 
@@ -124,7 +132,7 @@ const LoginPage: React.FC = () => {
           Personal
         </AppButton>
       </Flex>
-      <Box display={isUser ? 'block' : 'none'}>
+      <Box display={isUser !== undefined ? 'block' : 'none'}>
         <Box display={register ? 'none' : 'block'}>
           <Flex align={'center'} justify={'center'}>
             <Text fontSize={'18px'} fontWeight={'600'}>

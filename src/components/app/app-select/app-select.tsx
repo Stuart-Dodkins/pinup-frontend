@@ -43,11 +43,7 @@ export const AppSelect = <T extends {}>({
             value={value}
           >
             {options.map((item, index) => (
-              <option key={`${item.name}-${index}`} value={item.id} style={{
-                width: '100%',
-                backgroundColor: AppColors.primary,
-                color: AppColors.appTextColor
-              }}>
+              <option key={`${item.name}-${index}`} value={item.id}>
                 {item.name}
               </option>
             ))}
