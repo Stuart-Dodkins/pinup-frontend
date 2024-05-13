@@ -2,7 +2,11 @@ import { Flex, Text, Icon, FlexProps } from '@chakra-ui/react';
 import { FaMapPin } from 'react-icons/fa';
 import { IoArrowBack } from 'react-icons/io5';
 import { AppColors } from '../../theme';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { AppUserIcon } from '../app/app-user-icon/app-user-icon';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/slices/user.slice';
+import { User } from '../../models/user';
+import { selectColor } from '../../store/slices/user-icon-slice';
 
 export interface HeaderProps extends FlexProps {
   goBack?: () => void;
@@ -14,6 +18,8 @@ export const Header: React.FC<HeaderProps> = ({
   goBack,
   ...props
 }) => {
+  const user = useSelector(selectUser) as User;
+  const color = useSelector(selectColor);
   return (
     <Flex
       gap={30}
@@ -41,24 +47,20 @@ export const Header: React.FC<HeaderProps> = ({
           }}
         />
       )}
-      <Text fontWeight={'600'} fontSize={'18px'}>
-        PinUp
-      </Text>
-      <Icon as={FaMapPin} />
+      <Flex align={'center'} gap={1}>
+        <Text fontWeight={'600'} fontSize={'18px'}>
+          PinUp
+        </Text>
+        <Icon as={FaMapPin} />
+      </Flex>
       {onMenuOpen && (
-        <Icon
-          as={GiHamburgerMenu}
-          pos={'absolute'}
-          top={'15px'}
-          right={4}
+        <AppUserIcon
+          user={user}
           onClick={onMenuOpen}
-          aria-label='back-nav'
-          color={AppColors.appTextColor}
-          w={'30px'}
-          h={'30px'}
-          _hover={{
-            cursor: 'pointer',
-          }}
+          bgColor={color}
+          pos={'absolute'}
+          right={4}
+          top={3}
         />
       )}
     </Flex>

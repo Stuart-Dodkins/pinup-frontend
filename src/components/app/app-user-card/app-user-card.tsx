@@ -3,7 +3,7 @@ import { User } from '../../../models/user';
 import { AppUserIcon } from '../app-user-icon/app-user-icon';
 import { useSelector } from 'react-redux';
 import { selectColor } from '../../../store/slices/user-icon-slice';
-import { FaRegEdit } from 'react-icons/fa';
+import { IoSettingsSharp } from "react-icons/io5";
 
 export interface AppUserCardProps {
   image?: string;
@@ -27,7 +27,7 @@ const AppUserCard: React.FC<AppUserCardProps> = ({ image, user, updateUser }) =>
       border={'1px solid rgba(0, 0, 0, 0.1)'}
     >
       <Icon
-        as={FaRegEdit}
+        as={IoSettingsSharp}
         w={'25px'}
         h={'25px'}
         pos={'absolute'}

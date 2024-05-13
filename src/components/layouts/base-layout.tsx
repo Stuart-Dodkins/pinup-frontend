@@ -3,16 +3,10 @@ import { AppColors } from '../../theme';
 import { ReactNode } from 'react';
 import { RoutesList } from '../../router/router';
 import { useNavigate } from 'react-router-dom';
-import { AppUserIcon } from '../app/app-user-icon/app-user-icon';
-import { FaRegUser } from 'react-icons/fa';
 import { FaRegBell } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { Header } from './header';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/slices/user.slice';
-import { selectColor } from '../../store/slices/user-icon-slice';
-import { User } from '../../models/user';
-import { usePanel } from '../../providers/panel/panel-provider';
+import { FaHistory } from "react-icons/fa";
 
 export type BaseLayoutProps = {
   children?: ReactNode | ReactNode[];
@@ -20,12 +14,9 @@ export type BaseLayoutProps = {
 
 export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
-  const color = useSelector(selectColor);
   const handleBack = () => {
     navigate(-1);
   };
-  const panel = usePanel();
   return (
     <Flex
       minH={'100vh'}
@@ -36,11 +27,7 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
     >
       <Header
         goBack={() => handleBack()}
-        onMenuOpen={() => {
-          panel({
-            title: 'Menu',
-          });
-        }}
+        onMenuOpen={() => navigate(RoutesList.UserProfile)}
       />
       <Flex
         overflow={'auto'}
@@ -94,7 +81,7 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
         />
 
         <IconButton
-          icon={<FaRegUser />}
+          icon={<FaHistory />}
           aria-label={'ts'}
           bgColor={'transparent'}
           color={AppColors.appTextColor}
@@ -103,14 +90,7 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
           _hover={{
             boxShadow: 'lg',
           }}
-        />
-
-        <AppUserIcon
-          user={user as User}
-          bgColor={color}
-          onClick={() => {
-            navigate(RoutesList.UserProfile);
-          }}
+          onClick={() => navigate(RoutesList.UserHistory)}
         />
       </Flex>
     </Flex>
