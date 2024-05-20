@@ -1,81 +1,168 @@
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+import { Box, Flex, Text } from '@chakra-ui/react';
+// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import Cookies from 'universal-cookie';
+import { LoginForm, LoginFormData } from '../../components/forms/login-form';
+import { Header } from '../../components/layouts/header';
+import RegisterForm, {
+  RegisterFormData,
+} from '../../components/forms/register-form';
+import AppButton from '../../components/app/app-button/app-button';
+import { IoIosBusiness } from 'react-icons/io';
+import { IoPersonSharp } from 'react-icons/io5';
+import { RoutesList } from '../../router/router';
+import { useDispatch } from 'react-redux';
+import { setFirstLogin, setUser } from '../../store/slices/user.slice';
+// import { User } from '../../models/user';
+import { setIconColor } from '../../store/slices/user-icon-slice';
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState<string | undefined>(undefined);
-  const [password, setPassword] = useState<string | undefined>(undefined);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
+  const [register, setRegister] = useState<boolean>(true);
+  const [isUser, setIsUser] = useState<boolean>();
   const navigate = useNavigate();
-  const cookies = new Cookies();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/home");
-      return;
+  // const navigate = useNavigate();
+  // const cookies = new Cookies();
+
+  // const handleFormSubmit = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   if (!email || !password) return;
+
+  //   const payload = {
+  //     email: email,
+  //     password: password,
+  //   };
+
+  //   axios
+  //     .post('http://localhost:5050/login', payload)
+  //     .then((res) => {
+  //       if (!res) return;
+  //       cookies.set('TOKEN', res.data.token);
+  //       setIsLoggedIn(true);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
+
+  const handleLogin = (formData: LoginFormData) => {
+    if (isUser) {
+      dispatch(
+        setUser({
+          userId: '',
+          firstName: '',
+          lastName: '',
+          contactInfo: {
+            email: formData.email,
+            phone: '',
+            address: '',
+          },
+        })
+      );
+    } else {
+      console.log('BUSNIESS LOGIN');
     }
-  }, [isLoggedIn]);
-
-  const handleFormSubmit = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!email || !password) return;
-
-    const payload = {
-      email: email,
-      password: password,
-    };
-
-    axios
-      .post("http://localhost:5050/login", payload)
-      .then((res) => {
-        if (!res) return;
-        cookies.set("TOKEN", res.data.token);
-        setIsLoggedIn(true);
-      })
-      .catch((e) => console.log(e));
   };
 
-  return (
-    <>
-      <Flex
-        height={"100vh"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        width={"100%"}
-        flexDirection={"column"}
-      >
-        <Flex direction={"column"} gap={"20px"}>
-          <Text fontWeight={"bold"} width={"100%"}>
-            Login
-          </Text>
-          <Flex flexDirection={"column"} gap={"5px"}>
-            <Text fontWeight={"bold"} width={"100%"}>
-              Email
-            </Text>
-            <Input onChange={(e) => setEmail(e.currentTarget.value)} />
-          </Flex>
-          <Flex flexDirection={"column"} gap={"5px"}>
-            <Text fontWeight={"bold"} width={"100%"}>
-              Password
-            </Text>
-            <Input
-              type="password"
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-          </Flex>
+  const handleRegister = (formData: RegisterFormData) => {
+    if (isUser) {
+      dispatch(
+        setUser({
+          userId: '',
+          firstName: '',
+          lastName: '',
+          contactInfo: {
+            email: formData.email,
+            phone: '',
+            address: '',
+          },
+        })
+      );
+    } else {
+      console.log('BUSINESS REGISTER')
+    }
+    dispatch(setFirstLogin(true));
+  };
 
-          <Button
-            disabled={!email || !password}
-            onClick={(e) => handleFormSubmit(e)}
-          >
-            Submit
-          </Button>
-        </Flex>
+  useEffect(() => {
+    const values = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+      color += values[Math.floor(Math.random() * 16)];
+    }
+    dispatch(setIconColor(color));
+  }, []);
+
+  return (
+    <Flex
+      height={'100vh'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      width={'100vw'}
+      flexDirection={'column'}
+      pos={'relative'}
+      px={4}
+    >
+      <Header
+        pos={'absolute'}
+        top={0}
+        left={0}
+        goBack={() => setIsUser(undefined)}
+      />
+      <Flex
+        minH={'250px'}
+        w={'100%'}
+        p={4}
+        align={'center'}
+        justify={'center'}
+        boxShadow={'lg'}
+        flexDir={'column'}
+        gap={4}
+        rounded={'lg'}
+        display={isUser === undefined ? 'flex' : 'none'}
+      >
+        <AppButton
+          onClick={() => setIsUser(false)}
+          leftIcon={<IoIosBusiness />}
+        >
+          Business
+        </AppButton>
+        <AppButton onClick={() => setIsUser(true)} leftIcon={<IoPersonSharp />}>
+          Personal
+        </AppButton>
       </Flex>
-    </>
+      <Box display={isUser !== undefined ? 'block' : 'none'}>
+        <Box display={register ? 'none' : 'block'}>
+          <Flex align={'center'} justify={'center'}>
+            <Text fontSize={'18px'} fontWeight={'600'}>
+              Login
+            </Text>
+          </Flex>
+          <LoginForm
+            register={() => setRegister(!register)}
+            onSubmit={async (formData) => {
+              await handleLogin(formData);
+              navigate(RoutesList.Home);
+            }}
+          />
+        </Box>
+        <Box display={register ? 'block' : 'none'}>
+          <Flex align={'center'} justify={'center'}>
+            <Text fontSize={'18px'} fontWeight={'600'}>
+              Register
+            </Text>
+          </Flex>
+          <RegisterForm
+            login={() => setRegister(!register)}
+            onSubmit={(formData) => {
+              handleRegister(formData);
+              navigate(RoutesList.Home);
+            }}
+          />
+        </Box>
+      </Box>
+    </Flex>
   );
 };
 

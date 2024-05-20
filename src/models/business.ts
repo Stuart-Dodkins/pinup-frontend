@@ -14,3 +14,15 @@ export interface Business {
   description: string;
   contactInfo: ContactInformation;
 }
+
+export interface BusniessFormData {
+  name: string;
+  categories: string[];
+  imageUrls?: string[];
+  description: string[];
+  contactInfo: ContactInformation;
+}
+
+export interface BusniessEditFormData extends BusniessFormData {
+  id: string;
+}
