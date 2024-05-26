@@ -13,6 +13,7 @@ import {
 import storage from 'redux-persist/es/storage';
 import { iconColorSlice } from './slices/user-icon-slice';
 import { userSlice } from './slices/user.slice';
+import { authenticationSlice } from './slices/auth.slice';
 
 const userSlicePersistedReducer = persistReducer(
   {
@@ -32,6 +33,7 @@ const iconColorPersistedReducer = persistReducer(
 
 export const store = configureStore({
   reducer: {
+    auth: authenticationSlice.reducer,
     user: userSlicePersistedReducer,
     iconColor: iconColorPersistedReducer,
   },
