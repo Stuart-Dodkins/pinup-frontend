@@ -4,7 +4,6 @@ import { IoArrowBack } from 'react-icons/io5';
 import { AppColors } from '../../theme';
 import { AppUserIcon } from '../app/app-user-icon/app-user-icon';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/slices/user.slice';
 import { User } from '../../models/user';
 import { selectColor } from '../../store/slices/user-icon-slice';
 
@@ -18,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
   goBack,
   ...props
 }) => {
-  const user = useSelector(selectUser) as User;
+  // const user = useSelector(selectUser) as User;
   const color = useSelector(selectColor);
   return (
     <Flex
@@ -53,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
         </Text>
         <Icon as={FaMapPin} />
       </Flex>
-      {onMenuOpen && (
+      {/* {onMenuOpen && (
         <AppUserIcon
           user={user}
           onClick={onMenuOpen}
@@ -62,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
           right={4}
           top={3}
         />
-      )}
+      )} */}
     </Flex>
   );
 };

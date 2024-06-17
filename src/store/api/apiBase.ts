@@ -1,7 +1,8 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { RootState } from '../store';
 
-const baseUrl = process.env.REACT_APP_API_BASE;
+// const baseUrl = process.env.REACT_APP_API_BASE;
+const baseUrl = 'http://localhost:5050'
 
 export const AppFetchBaseQuery = fetchBaseQuery({
   baseUrl: `${baseUrl}/`,

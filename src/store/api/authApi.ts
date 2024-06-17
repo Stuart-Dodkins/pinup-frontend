@@ -1,12 +1,12 @@
-import { createApi } from '@reduxjs/toolkit/dist/query';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { AppFetchBaseQuery } from './apiBase';
-import { AuthParams, LoginParams } from '../../models/auth';
+import { AuthParams, LoginParams, UserAuth } from '../../models/auth';
 
 export const authApi = createApi({
   reducerPath: 'authenticationApi',
   baseQuery: AppFetchBaseQuery,
   endpoints: (build) => ({
-    userAuth: build.mutation<AuthParams, LoginParams>({
+    userAuth: build.mutation<UserAuth, LoginParams>({
       query: (body) => ({
         url: '/auth/login/user',
         method: 'POST',
@@ -22,3 +22,8 @@ export const authApi = createApi({
     }),
   }),
 });
+
+export const {
+  useBusinessAuthMutation,
+  useUserAuthMutation
+} = authApi

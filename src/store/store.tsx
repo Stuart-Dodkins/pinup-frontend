@@ -12,15 +12,17 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import { iconColorSlice } from './slices/user-icon-slice';
-import { userSlice } from './slices/user.slice';
 import { authenticationSlice } from './slices/auth.slice';
+import { userApi } from './api/userApi';
+import { businessApi } from './api/businessApi';
+import { authApi } from './api/authApi';
 
-const userSlicePersistedReducer = persistReducer(
+const authPersistedReducer = persistReducer(
   {
-    key: 'user',
+    key: 'authentication',
     storage,
   },
-  userSlice.reducer
+  authenticationSlice.reducer
 );
 
 const iconColorPersistedReducer = persistReducer(
@@ -33,8 +35,10 @@ const iconColorPersistedReducer = persistReducer(
 
 export const store = configureStore({
   reducer: {
-    auth: authenticationSlice.reducer,
-    user: userSlicePersistedReducer,
+    auth: authPersistedReducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [businessApi.reducerPath]: businessApi.reducer,
     iconColor: iconColorPersistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -42,7 +46,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(),
+    }).concat(authApi.middleware, userApi.middleware, businessApi.middleware),
 });
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

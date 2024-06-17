@@ -3,13 +3,12 @@ import AppButton from '../../components/app/app-button/app-button';
 import { BaseLayout } from '../../components/layouts/base-layout';
 import AppUserCard from '../../components/app/app-user-card/app-user-card';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/slices/user.slice';
 import { User } from '../../models/user';
 import { usePanel } from '../../providers/panel/panel-provider';
 
 const UserProfile: React.FC = () => {
-  const user = useSelector(selectUser);
-  console.log('USER', user);
+  
+  // console.log('USER', user);
   const panel = usePanel();
   return (
     <BaseLayout>
@@ -17,11 +16,11 @@ const UserProfile: React.FC = () => {
         <Text fontWeight={'600'} fontSize={'2xl'}>
           User Profile
         </Text>
-        <AppUserCard user={user as User} updateUser={() => {
+        {/* <AppUserCard user={user as User} updateUser={() => {
             panel({
                 title: 'Update Profile'
             })
-        }} />
+        }} /> */}
         <AppButton>Sign Out</AppButton>
       </Flex>
     </BaseLayout>

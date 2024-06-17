@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, useToast } from '@chakra-ui/react';
 // import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,52 +13,41 @@ import { IoIosBusiness } from 'react-icons/io';
 import { IoPersonSharp } from 'react-icons/io5';
 import { RoutesList } from '../../router/router';
 import { useDispatch } from 'react-redux';
-import { setFirstLogin, setUser } from '../../store/slices/user.slice';
 // import { User } from '../../models/user';
 import { setIconColor } from '../../store/slices/user-icon-slice';
+import { useUserAuthMutation } from '../../store/api/authApi';
+import { logout, setUserAuth } from '../../store/slices/auth.slice';
+import { UserAuth } from '../../models/auth';
 
 const LoginPage: React.FC = () => {
   const [register, setRegister] = useState<boolean>(true);
-  const [isUser, setIsUser] = useState<boolean>();
+  const [isUser, setIsUser] = useState<boolean>(true);
+  const toast = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const navigate = useNavigate();
-  // const cookies = new Cookies();
+  const [userAuth, { data, isLoading, error, isSuccess, isError }] =
+    useUserAuthMutation();
 
-  // const handleFormSubmit = (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  //   if (!email || !password) return;
-
-  //   const payload = {
-  //     email: email,
-  //     password: password,
-  //   };
-
-  //   axios
-  //     .post('http://localhost:5050/login', payload)
-  //     .then((res) => {
-  //       if (!res) return;
-  //       cookies.set('TOKEN', res.data.token);
-  //       setIsLoggedIn(true);
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
-
-  const handleLogin = (formData: LoginFormData) => {
+  const handleLogin = async (formData: LoginFormData) => {
     if (isUser) {
-      dispatch(
-        setUser({
-          userId: '',
-          firstName: '',
-          lastName: '',
-          contactInfo: {
-            email: formData.email,
-            phone: '',
-            address: '',
-          },
-        })
-      );
+      try {
+        await dispatch(logout());
+        const userLogin = await userAuth({
+          email: formData.email,
+          password: formData.password,
+        }).unwrap();
+        dispatch(setUserAuth(userLogin));
+        navigate(RoutesList.Home);
+      } catch (error) {
+        toast({
+          title: 'Login Error',
+          description: "We've run into an error trying to log you in",
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     } else {
       console.log('BUSNIESS LOGIN');
     }
@@ -66,22 +55,22 @@ const LoginPage: React.FC = () => {
 
   const handleRegister = (formData: RegisterFormData) => {
     if (isUser) {
-      dispatch(
-        setUser({
-          userId: '',
-          firstName: '',
-          lastName: '',
-          contactInfo: {
-            email: formData.email,
-            phone: '',
-            address: '',
-          },
-        })
-      );
+      // dispatch(
+      //   setUser({
+      //     userId: '',
+      //     firstName: '',
+      //     lastName: '',
+      //     contactInfo: {
+      //       email: formData.email,
+      //       phone: '',
+      //       address: '',
+      //     },
+      //   })
+      // );
     } else {
-      console.log('BUSINESS REGISTER')
+      console.log('BUSINESS REGISTER');
     }
-    dispatch(setFirstLogin(true));
+    // dispatch(setFirstLogin(true));
   };
 
   useEffect(() => {
@@ -108,7 +97,7 @@ const LoginPage: React.FC = () => {
         pos={'absolute'}
         top={0}
         left={0}
-        goBack={() => setIsUser(undefined)}
+        goBack={() => setIsUser(false)}
       />
       <Flex
         minH={'250px'}
@@ -120,7 +109,7 @@ const LoginPage: React.FC = () => {
         flexDir={'column'}
         gap={4}
         rounded={'lg'}
-        display={isUser === undefined ? 'flex' : 'none'}
+        display={isUser === false ? 'flex' : 'none'}
       >
         <AppButton
           onClick={() => setIsUser(false)}
