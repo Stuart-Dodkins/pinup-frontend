@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegBell } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { Header } from './header';
-import { FaHistory } from "react-icons/fa";
+import { FaHistory } from 'react-icons/fa';
+import { AppUserIcon } from '../app/app-user-icon/app-user-icon';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/slices/auth.slice';
+import { selectColor } from '../../store/slices/user-icon-slice';
 
 export type BaseLayoutProps = {
   children?: ReactNode | ReactNode[];
@@ -17,6 +21,7 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   const handleBack = () => {
     navigate(-1);
   };
+  const user = useSelector(selectUser);
   return (
     <Flex
       minH={'100vh'}
@@ -91,6 +96,11 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
             boxShadow: 'lg',
           }}
           onClick={() => navigate(RoutesList.UserHistory)}
+        />
+        <AppUserIcon
+          user={user}
+          bgColor={useSelector(selectColor)}
+          onClick={() => navigate(RoutesList.UserProfile)}
         />
       </Flex>
     </Flex>

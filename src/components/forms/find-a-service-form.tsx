@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { BaseFormProps } from '../../models/base';
 import { AppSelect } from '../app/app-select/app-select';
+import { serviceOptions } from '../../constants/companyServices';
 
 interface ServiceFinderFormData {
   location: string;
@@ -42,21 +43,6 @@ const ServiceFinderForm: React.FC<
     resolver: yupResolver(dataSchema),
   });
 
-  const options = [
-    {
-      id: '1',
-      name: 'Test one',
-    },
-    {
-      id: '2',
-      name: 'Test two',
-    },
-    {
-      id: '3',
-      name: 'Test three',
-    },
-  ];
-
   return (
     <Stack border={'1px solid rgba(0, 0, 0, 0.1)'} spacing={4} p={4} rounded={'2xl'} boxShadow={'lg'} w={'100%'}>
       <AppInput<ServiceFinderFormData>
@@ -79,7 +65,7 @@ const ServiceFinderForm: React.FC<
         error={errors.location}
         label='Service'
         placeholder='Service Category'
-        options={options}
+        options={serviceOptions}
       />
       <AppButton
         rightIcon={<FaSearch />}

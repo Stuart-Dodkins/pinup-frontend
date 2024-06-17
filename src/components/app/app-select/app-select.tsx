@@ -1,9 +1,4 @@
-import {
-  Select,
-  SelectProps,
-  FormLabel,
-  FormControl,
-} from '@chakra-ui/react';
+import { Select, SelectProps, FormLabel, FormControl } from '@chakra-ui/react';
 import { Control, Controller, FieldError, Path } from 'react-hook-form';
 import { AppColors } from '../../../theme';
 

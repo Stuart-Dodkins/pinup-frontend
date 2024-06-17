@@ -1,7 +1,8 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { RoutesList } from '../router';
+import { useSelector } from 'react-redux';
+import { selectToken } from '../../store/slices/auth.slice';
 
 interface PrivateRouteProps {
   route: string;
@@ -14,8 +15,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }: any) => {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const cookie = new Cookies();
-  const token = cookie.get('TOKEN');
+  const token = useSelector(selectToken)
 
   const routeGuard = () => {
     if (route) {

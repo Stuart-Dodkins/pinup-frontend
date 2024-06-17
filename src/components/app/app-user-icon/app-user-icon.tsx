@@ -4,7 +4,7 @@ import { User } from '../../../models/user';
 import { AppColors } from '../../../theme';
 
 export type UserNavIconProps = {
-  user: Business | User;
+  user: Business | User | null;
   bgColor?: string;
   fontSize?: string;
   onClick: (link: any) => void;

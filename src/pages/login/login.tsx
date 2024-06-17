@@ -1,8 +1,6 @@
 import { Box, Flex, Text, useToast } from '@chakra-ui/react';
-// import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import Cookies from 'universal-cookie';
 import { LoginForm, LoginFormData } from '../../components/forms/login-form';
 import { Header } from '../../components/layouts/header';
 import RegisterForm, {
@@ -13,11 +11,9 @@ import { IoIosBusiness } from 'react-icons/io';
 import { IoPersonSharp } from 'react-icons/io5';
 import { RoutesList } from '../../router/router';
 import { useDispatch } from 'react-redux';
-// import { User } from '../../models/user';
 import { setIconColor } from '../../store/slices/user-icon-slice';
 import { useUserAuthMutation } from '../../store/api/authApi';
-import { logout, setUserAuth } from '../../store/slices/auth.slice';
-import { UserAuth } from '../../models/auth';
+import { logout, setUser, setUserAuth } from '../../store/slices/auth.slice';
 
 const LoginPage: React.FC = () => {
   const [register, setRegister] = useState<boolean>(true);
@@ -37,6 +33,7 @@ const LoginPage: React.FC = () => {
           email: formData.email,
           password: formData.password,
         }).unwrap();
+        dispatch(setUser(userLogin.user));
         dispatch(setUserAuth(userLogin));
         navigate(RoutesList.Home);
       } catch (error) {

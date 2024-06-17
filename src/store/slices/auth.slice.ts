@@ -5,7 +5,7 @@ import { Business } from '../../models/business';
 import { RootState } from '../store';
 
 export interface AuthState {
-  user?: User | null;
+  user: User | null;
   business?: Business | null;
   token: string | null;
   error: string | null;
